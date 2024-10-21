@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Products</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+  <h2>Products</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.description}"></td>
+      <td th:text="${product.price}"></td>
+      <td th:text="${product.stock}"></td>
+      <td>
+        <form th:action="@{/order/place}" method="post">
+          <input type="hidden" th:value="${product.id}" name="productId">
+          <button type="submit" class="btn btn-success" th:disabled="${product.stock == 0}">Subscribe</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
